@@ -8,16 +8,17 @@ def read_file():
             text_list = [line for line in text.splitlines()] # Split the text string into a list of lines
     return text_list
 
-def findWord():
+def findLine():
     text = read_file() # reads the text from the files
     while True: #infinite loop
         word = input("Enter a word: ") # takes the word from userinput
         found = False
         for line in text:
-            if word in line: #if word is in the text line
+            if word in line.split(): #if word is in the text line
                 print(line)
                 found = True
+
         if not found:
             print("Word not found")
 
-findWord()
+findLine()
