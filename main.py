@@ -15,7 +15,7 @@ def findLine(word):
     word_lower = word.lower()
     for line in text:
         if word_lower in line.lower():
-            print(line.replace(word_lower, f'\033[31;33m{word_lower}\033[m')) # Highlight the word in the line in yellow
+            print(line.replace(word_lower, f'\033[33m{word_lower}\033[m')) # Highlight the word in the line with 33m color code (yellow)
             found = True
             word_count += 1
     print(f"The word '{word}' was found {word_count} times)")
@@ -28,8 +28,8 @@ def findLine(word):
 def main():
     while True: # loop until user exits
         word = str(input("Enter a word (4 for exit): ")) # takes the word from userinput
-        if len(word) < 2:
-            print("Word must be at least 2 characters long")
+        if len(word) < 1:
+            print("Word must be at least 1 characters long")
         elif word == "4":
             break
         else:
