@@ -1,5 +1,16 @@
 filenames = ["tekstfil1.txt", "tekstfil2.txt", "tekstfil3.txt"]
 
+
+def main():
+    while True: # loop until user exits
+        word = str(input('\033[32mEnter a word (4 for exit): \033[m')) # takes the word from userinput as string
+        if len(word) < 1: #check if word is at least 1 character long
+            print("Word must be at least 1 characters long")
+        elif word == "4": 
+            break #Exit program
+        else:
+            findLine(word)
+
 def read_file():
     text = ""
     for file in filenames: # Loop through each filename in the filenames list.
@@ -12,27 +23,16 @@ def findLine(word):
     text = read_file() # reads the text from the files
     found = False
     word_count = 0
-    word_lower = word.lower()
     for line in text:
-        if word_lower in line.lower():
-            print(line.replace(word_lower, f'\033[33m{word_lower}\033[m')) # Highlight the word in the line with 33m color code (yellow)
+        if word.lower() in line.lower():
+            print(line.replace(word, f'\033[33m{word}\033[m')) # Highlight the word in the line with 33m color code (yellow)
             found = True
             word_count += 1
-    print(f"The word '{word}' was found {word_count} times)")
+        
+    if found:
+        print(f"The word '\033[36m{word}\033[m' was found '\033[36m{word_count}\033[m' times)") #cyan color
     if not found:
-        print("Word not found")
+        print(f"\033[31mNo results found for '{word}'\033[m") #red color
 
-
-
-
-def main():
-    while True: # loop until user exits
-        word = str(input("Enter a word (4 for exit): ")) # takes the word from userinput
-        if len(word) < 1:
-            print("Word must be at least 1 characters long")
-        elif word == "4":
-            break
-        else:
-            findLine(word)
 
 main()
