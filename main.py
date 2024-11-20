@@ -1,3 +1,4 @@
+import re
 filenames = ["tekstfil1.txt", "tekstfil2.txt", "tekstfil3.txt"]
 
 
@@ -5,7 +6,7 @@ def main():
     while True: # loop until user exits
         word = str(input('\033[32mEnter a word (4 for exit): \033[m')) # takes the word from userinput as string
         if len(word) < 1: #check if word is at least 1 character long
-            print("Word must be at least 1 characters long")
+            print("\033[31mWord must be at least 1 characters long\033[m")
         elif word == "4": 
             break #Exit program
         else:
@@ -23,9 +24,12 @@ def findLine(word):
     text = read_file() # reads the text from the files
     found = False
     word_count = 0
+    lower_word = word.lower()  # Convert the word to lower case
     for line in text:
-        if word.lower() in line.lower():
-            print(line.replace(word, f'\033[33m{word}\033[m')) # Highlight the word in the line with 33m color code (yellow)
+        lower_line = line.lower()  # Convert the line to lower case
+        if lower_word in lower_line:
+            highlighted_line = re.sub(f'(?i)({re.escape(word)})', r'\033[33m\1\033[m', line)  # Highlight the word in the line with 33m color code (yellow)
+            print(highlighted_line)
             found = True
             word_count += 1
         
