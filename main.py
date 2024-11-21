@@ -4,11 +4,13 @@ filenames = ["tekstfil1.txt", "tekstfil2.txt", "tekstfil3.txt"]
 
 def main():
     while True: # loop until user exits
-        word = str(input('\033[32mEnter a word (4 for exit): \033[m')) # takes the word from userinput as string
+        word = str(input('\033[32mEnter a word (4 for exit): \033[m')) # takes the word from userinput as string. (ANSI escape code \033[32m for green)
         if len(word) < 1: #check if word is at least 1 character long
             print("\033[31mWord must be at least 1 characters long\033[m")
-        elif word == "4": 
-            break #Exit program
+        elif word == "4":
+            exit_program = input("\033[31mAre you sure you want to exit? J/N \033[m") #(ANSI escape code \033[31m for red)
+            if exit_program.lower() == "j":
+                break
         else:
             findLine(word)
 
@@ -28,15 +30,17 @@ def findLine(word):
     for line in text:
         lower_line = line.lower()  # Convert the line to lower case
         if lower_word in lower_line:
-            highlighted_line = re.sub(f'(?i)({re.escape(word)})', r'\033[33m\1\033[m', line)  # Highlight the word in the line with 33m color code (yellow)
+            # This line uses a regular expression to search for the word (case-insensitive) in the line,
+            # and replaces it with the same word highlighted in yellow (ANSI escape code \033[33m for yellow).
+            highlighted_line = re.sub(f'(?i)({re.escape(word)})', r'\033[33m\1\033[m', line)  
             print(highlighted_line)
             found = True
             word_count += 1
         
     if found:
-        print(f"The word '\033[36m{word}\033[m' was found '\033[36m{word_count}\033[m' times)") #cyan color
+        print(f"Results for '\033[36m{word}\033[m' found '\033[36m{word_count}\033[m' times)") #(ANSI escape code \033[36m for cyan)
     if not found:
-        print(f"\033[31mNo results found for '{word}'\033[m") #red color
+        print(f"\033[31mNo results found for '{word}'\033[m") #(ANSI escape code \033[31m for red)
 
 
 main()
