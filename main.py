@@ -3,6 +3,7 @@ filenames = ["tekstfil1.txt", "tekstfil2.txt", "tekstfil3.txt"]
 
 
 def main():
+    read_file()
     while True: # loop until user exits
         word = str(input('\033[32mEnter a word (4 for exit): \033[m')) # takes the word from userinput as string. (ANSI escape code \033[32m for green)
         if len(word) < 1: #check if word is at least 1 character long
@@ -12,9 +13,10 @@ def main():
             if exit_program.lower() == "j":
                 break
         else:
-            findLine(word)
+            find_line(word)
 
 def read_file():
+    # denne funksjonen leser filene og returnerer en kombinert liste av alle tekstene (krav lesInnTekst)
     text = ""
     for file in filenames: # Loop through each filename in the filenames list.
         with open(file, "r", encoding="utf-8") as f: # Open the current file in read mode with UTF-8 encoding.
@@ -22,7 +24,8 @@ def read_file():
             text_list = text.splitlines() # Split the text string into a list of lines
     return text_list
 
-def findLine(word):
+def find_line(word):
+    # denne funkjsonen kan finne linje (krav finnLinje), ord (krav finnOrd) og returnere true eller false om den fant ordet.
     text = read_file() # reads the text from the files
     found = False
     word_count = 0
